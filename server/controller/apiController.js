@@ -6,7 +6,7 @@ const startScraping = require('../api/scrap');
 const zlib = require('zlib');
 
 //Store data in redis
-const redis = require('../config/redisConfig')
+// const redis = require('../config/redisConfig')
 
 
 let homeDocument, homeDocumentTwo, homeDocumentThree, homeDocumentFour;
@@ -333,108 +333,112 @@ async function storeHtmlTags() {
     let fieldIndex = 0;
 
     try {
-      for await (const htmlTag of scraper) {
-        if (htmlTag) {
-          const buffer = Buffer.from(htmlTag);
-          const compressedBuffer = zlib.deflateSync(buffer);
-          const compressedData = compressedBuffer.toString('base64');
+      while (true) {
+        for await (const htmlTag of scraper) {
+          if (htmlTag) {
+            const buffer = Buffer.from(htmlTag);
+            const compressedBuffer = zlib.deflateSync(buffer);
+            const compressedData = compressedBuffer.toString('base64');
 
-          // let buffer = Buffer.from(htmlTag);
-          // let compressedData = zlib.deflateSync(buffer);
+            // let buffer = Buffer.from(htmlTag);
+            // let compressedData = zlib.deflateSync(buffer);
 
-          switch (currentCollection) {
-            case 1:
-              if (fieldIndex < groupOneFields.length) {
-                homeDocument[groupOneFields[fieldIndex]] = compressedData;
-                await homeDocument.save();
-                console.log(`${groupOneFields[fieldIndex]} data stored/updated successfully.`);
-
-
-
-                //Store data in redis
-                await redis.set(groupOneFields[fieldIndex], compressedData)
-                  .then((res) => {
-                    console.log(`Redis set for ${groupOneFields[fieldIndex]} `);
-                  }).catch((err) => {
-                    console.log(err.message);
-                  });
-              }
-              break;
-            case 2:
-              if (fieldIndex < groupTwoFields.length) {
-                homeDocumentTwo[groupTwoFields[fieldIndex]] = compressedData;
-                await homeDocumentTwo.save();
-                console.log(`${groupTwoFields[fieldIndex]} data stored/updated successfully.`);
+            switch (currentCollection) {
+              case 1:
+                if (fieldIndex < groupOneFields.length) {
+                  homeDocument[groupOneFields[fieldIndex]] = compressedData;
+                  await homeDocument.save();
+                  console.log(`${groupOneFields[fieldIndex]} data stored/updated successfully.`);
 
 
 
-                //Store data in redis
-                await redis.set(groupTwoFields[fieldIndex], compressedData)
-                  .then((res) => {
-                    console.log(`Redis set for ${groupTwoFields[fieldIndex]} `);
-                  }).catch((err) => {
-                    console.log(err.message);
-                  });
-              }
-              break;
-            case 3:
-              if (fieldIndex < groupThreeFields.length) {
-                homeDocumentThree[groupThreeFields[fieldIndex]] = compressedData;
-                await homeDocumentThree.save();
-                console.log(`${groupThreeFields[fieldIndex]} data stored/updated successfully.`);
+                  //Store data in redis
+                  // await redis.set(groupOneFields[fieldIndex], compressedData)
+                  //   .then((res) => {
+                  //     console.log(`Redis set for ${groupOneFields[fieldIndex]} `);
+                  //   }).catch((err) => {
+                  //     console.log(err.message);
+                  //   });
+                }
+                break;
+              case 2:
+                if (fieldIndex < groupTwoFields.length) {
+                  homeDocumentTwo[groupTwoFields[fieldIndex]] = compressedData;
+                  await homeDocumentTwo.save();
+                  console.log(`${groupTwoFields[fieldIndex]} data stored/updated successfully.`);
 
 
 
-                //Store data in redis
-                await redis.set(groupThreeFields[fieldIndex], compressedData)
-                  .then((res) => {
-                    console.log(`Redis set for ${groupThreeFields[fieldIndex]} `);
-                  }).catch((err) => {
-                    console.log(err.message);
-                  });
-              }
-              break;
-            case 4:
-              if (fieldIndex < groupFourFields.length) {
-                homeDocumentFour[groupFourFields[fieldIndex]] = compressedData;
-                await homeDocumentFour.save();
-                console.log(`${groupFourFields[fieldIndex]} data stored/updated successfully.`);
+                  //Store data in redis
+                  // await redis.set(groupTwoFields[fieldIndex], compressedData)
+                  //   .then((res) => {
+                  //     console.log(`Redis set for ${groupTwoFields[fieldIndex]} `);
+                  //   }).catch((err) => {
+                  //     console.log(err.message);
+                  //   });
+                }
+                break;
+              case 3:
+                if (fieldIndex < groupThreeFields.length) {
+                  homeDocumentThree[groupThreeFields[fieldIndex]] = compressedData;
+                  await homeDocumentThree.save();
+                  console.log(`${groupThreeFields[fieldIndex]} data stored/updated successfully.`);
 
 
 
-                //Store data in redis
-                await redis.set(groupFourFields[fieldIndex], compressedData)
-                  .then((res) => {
-                    console.log(`Redis set for ${groupFourFields[fieldIndex]} `);
-                  }).catch((err) => {
-                    console.log(err.message);
-                  });
-              }
-              break;
+                  //Store data in redis
+                  // await redis.set(groupThreeFields[fieldIndex], compressedData)
+                  //   .then((res) => {
+                  //     console.log(`Redis set for ${groupThreeFields[fieldIndex]} `);
+                  //   }).catch((err) => {
+                  //     console.log(err.message);
+                  //   });
+                }
+                break;
+              case 4:
+                if (fieldIndex < groupFourFields.length) {
+                  homeDocumentFour[groupFourFields[fieldIndex]] = compressedData;
+                  await homeDocumentFour.save();
+                  console.log(`${groupFourFields[fieldIndex]} data stored/updated successfully.`);
+
+
+
+                  //Store data in redis
+                  //   await redis.set(groupFourFields[fieldIndex], compressedData)
+                  //     .then((res) => {
+                  //       console.log(`Redis set for ${groupFourFields[fieldIndex]} `);
+                  //     }).catch((err) => {
+                  //       console.log(err.message);
+                  //     });
+                }
+                break;
+            }
+
+            fieldIndex++;
+
+            // Transition to the next collection if we have processed all fields in the current collection
+            if (
+              (currentCollection === 1 && fieldIndex >= groupOneFields.length) ||
+              (currentCollection === 2 && fieldIndex >= groupTwoFields.length) ||
+              (currentCollection === 3 && fieldIndex >= groupThreeFields.length) ||
+              (currentCollection === 4 && fieldIndex >= groupFourFields.length)
+            ) {
+              currentCollection++;
+              fieldIndex = 0;
+            }
+
+            // If all collections are processed, reset back to the first one
+            if (currentCollection > 4) {
+              currentCollection = 1;
+              fieldIndex = 0;
+              console.log("All collections processed. Restarting from the first collection.");
+            }
+          } else {
+            console.log(`No data fetched for the current field in collection ${currentCollection}.`);
           }
-
-          fieldIndex++;
-
-          // Transition to the next collection if we have processed all fields in the current collection
-          if (
-            (currentCollection === 1 && fieldIndex >= groupOneFields.length) ||
-            (currentCollection === 2 && fieldIndex >= groupTwoFields.length) ||
-            (currentCollection === 3 && fieldIndex >= groupThreeFields.length) ||
-            (currentCollection === 4 && fieldIndex >= groupFourFields.length)
-          ) {
-            currentCollection++;
-            fieldIndex = 0;
-          }
-
-          // Exit if all collections have been processed
-          if (currentCollection > 4) {
-            await storeHtmlTags();
-            break;
-          }
-        } else {
-          console.log(`No data fetched for the current field in collection ${currentCollection}.`);
         }
       }
+
     } catch (error) {
       console.error('An error occurred:', error.message);
     }

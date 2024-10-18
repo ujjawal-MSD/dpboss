@@ -256,7 +256,7 @@ const App = () => {
           <Route path="/panel-chart-record/milan-morning.php" element={<MilanMorning />} />
           <Route path="/panel-chart-record/sridevi.php" element={<Sridevi />} />
           <Route path="/panel-chart-record/kalyan-morning.php" element={<KalyanMorning />} />
-          <Route path="/panel-chart-record/padmavati.php" element={<Padmavati />} />
+          <Route path="/panel-chart-record/padmavathi.php" element={<Padmavati />} />
           <Route path="/panel-chart-record/madhuri.php" element={<Madhuri />} />
           <Route path="/panel-chart-record/sridevi-morning.php" element={<SrideviMorning />} />
           <Route path="/panel-chart-record/maharani.php" element={<Maharani />} />
@@ -382,7 +382,7 @@ const App = () => {
           <Route path="/jodi-chart-record/milan-morning.php" element={<JodiMilanMorning />} />
           <Route path="/jodi-chart-record/sridevi.php" element={<JodiSridevi />} />
           <Route path="/jodi-chart-record/kalyan-morning.php" element={<JodiKalyanMorning />} />
-          <Route path="/jodi-chart-record/padmavati.php" element={<JodiPadmavati />} />
+          <Route path="/jodi-chart-record/padmavathi.php" element={<JodiPadmavati />} />
           <Route path="/jodi-chart-record/madhuri.php" element={<JodiMadhuri />} />
           <Route path="/jodi-chart-record/sridevi-morning.php" element={<JodiSrideviMorning />} />
           <Route path="/jodi-chart-record/maharani.php" element={<JodiMaharani />} />

@@ -259,11 +259,11 @@ async function getHtmlTags(page, url, index) {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       console.log(`Attempting to fetch URL ${url} for the ${attempt} time.`);
-      await page.goto(`https://dpbossss.services${url}`, { waitUntil: 'networkidle0' });
+      await page.goto(`${process.env.SITE_URL}${url}`, { waitUntil: 'networkidle0' });
 
       const htmlContent = await page.$eval('html', element => element.outerHTML);
       const modifiedContent = htmlContent
-        .replaceAll('https://dpbossss.services', 'http://localhost:5173')
+        .replaceAll(`${process.env.SITE_URL}`, `${process.env.FRONTEND_URL}`)
         .replaceAll(/Boss|dpbossss.services|DPBOSS\.Services|DPBOSS|dpboss|dp|boss|DP|DP\sBOSS|DpBossss\.services/gi, 'WOLF247')
 
       modifiedHtmlContent[index] = modifiedContent;
@@ -304,9 +304,11 @@ async function* startScraping() {
   try {
     const page = await browser.newPage();
 
-    for (let i = 0; i < urls.length; i++) {
-      await getHtmlTags(page, urls[i], i);
-      yield modifiedHtmlContent[i];
+    while (true) {
+      for (let i = 0; i < urls.length; i++) {
+        await getHtmlTags(page, urls[i], i);
+        yield modifiedHtmlContent[i];
+      }
     }
   } finally {
     await browser.close();
