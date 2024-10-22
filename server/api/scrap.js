@@ -1,9 +1,12 @@
-const puppeteer = require('puppeteer');
+
 const fs = require('fs');
 const path = require('path');
 
+const axios = require('axios');
+const cheerio = require('cheerio');
+
+
 const urls = [
-  // Panels Links  
   "",
   "/panel-chart-record/milan-morning.php",
   "/panel-chart-record/sridevi.php",
@@ -130,7 +133,7 @@ const urls = [
 
 
 
-  // Jodi Panels Links  
+  // Jodi Panels Links
   "/jodi-chart-record/milan-morning.php",
   "/jodi-chart-record/sridevi.php",
   "/jodi-chart-record/kalyan-morning.php",
@@ -255,14 +258,19 @@ const urls = [
 const modifiedHtmlContent = [];
 const maxRetries = 3;
 
-async function getHtmlTags(page, url, index) {
+async function getHtmlTags(url, index) {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       console.log(`Attempting to fetch URL ${url} for the ${attempt} time.`);
-      await page.goto(`${process.env.SITE_URL}${url}`, { waitUntil: 'networkidle0' });
+      // Fetch the HTML content of the page using axios
+      const response = await axios.get(`${process.env.SITE_URL}${url}`);
+      const htmlContent = response.data;
 
-      const htmlContent = await page.$eval('html', element => element.outerHTML);
-      const modifiedContent = htmlContent
+      // Load the HTML into cheerio
+      const $ = cheerio.load(htmlContent);
+
+      // Get the entire HTML content
+      const modifiedContent = $.html()
         .replaceAll(`${process.env.SITE_URL}`, `${process.env.FRONTEND_URL}`)
         .replaceAll(/Boss|dpbossss.services|DPBOSS\.Services|DPBOSS|dpboss|dp|boss|DP|DP\sBOSS|DpBossss\.services/gi, 'WOLF247')
 
@@ -295,23 +303,13 @@ async function getErrorHtmlContent() {
   }
 }
 
+
 async function* startScraping() {
-  const browser = await puppeteer.launch({
-    headless: false,
-    executablePath: '/opt/google/chrome/google-chrome'
-  });
-
-  try {
-    const page = await browser.newPage();
-
-    while (true) {
-      for (let i = 0; i < urls.length; i++) {
-        await getHtmlTags(page, urls[i], i);
-        yield modifiedHtmlContent[i];
-      }
+  while (true) {
+    for (let i = 0; i < urls.length; i++) {
+      await getHtmlTags(urls[i], i);
+      yield modifiedHtmlContent[i];
     }
-  } finally {
-    await browser.close();
   }
 }
 

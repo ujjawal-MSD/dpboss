@@ -399,3 +399,208 @@ const puppeteer = require('puppeteer');
 // })();
 
 // module.exports = modifiedHtmlContent;
+
+
+
+
+
+
+
+
+
+
+
+
+// const arr = [
+//     'milan-morning', 'sridevi', 'kalyan-morning',
+//     'padmavathi', 'madhuri', 'sridevi-morning',
+//     'maharani', 'prabhat', 'karnataka-day',
+//     'time-bazar-morning', 'time-bazar', 'diamond',
+//     'tara-mumbai-day', 'main-kalyan', 'time-bazar-day',
+//     'milan-day', 'main-bazar-day', 'puna-bazar',
+//     'kalyan', 'sridevi-night', 'diamond-night',
+//     'madhuri-night', 'night-time-bazar', 'tara-mumbai-night',
+//     'main-bazar-night', 'milan-night', 'rajdhani-night',
+//     'main-bazar', 'maharani-day', 'sridevi-day',
+//     'dhanshree', 'kalyan-night', 'kalyan-pro',
+//     'gujrat', 'old-main-mumbai', 'rajlaxmi',
+//     'madhur-morning', 'madhur-day', 'madhur-night',
+//     'ratan-khatri', 'maharani-night', 'padmavati-night',
+//     'jay-shree-day', 'sri-dhanalaxmi', 'dhanshree-day',
+//     'main-bombay', 'sunday-bazar', 'sunday-bazar-night',
+//     'super-goa-day', 'puna-night-main', 'khajana',
+//     'sridevi-main', 'sridevi-main-night', 'supreme-morning',
+//     'supreme-day', 'supreme-night', 'gujrat-night',
+//     'dhanshree-night', 'bsf-bazar', 'sita-morning',
+//     'kalyan-gold-night', 'bombay-day', 'srilakshmi',
+//     'milan-bazar', 'ratan-day', 'chandan',
+//     'maharashtra', 'worli', 'worli-mumbai-day',
+//     'main-mumbai-rk', 'worli-mumbai', 'sita-day',
+//     'satyam-mumbai', 'country-bazar', 'rose-bazar-day',
+//     'rose-bazar-night', 'janta-morning', 'central-bombay',
+//     'teen-patti', 'super-time', 'bhagyalaxmi',
+//     'kaali', 'main-mumbai-night', 'super-matka',
+//     'maharaj-time', 'maharaj-day', 'maharaj-night',
+//     'bazar-day', 'bazar-night', 'rajdhani-day',
+//     'puna-night', 'time-night', 'mohini',
+//     'mumbai-star', 'kalyan-bazar', 'mahadevi',
+//     'satyam-mumbai-evening', 'kalyan-gold', 'sita-night',
+//     'kamal-morning', 'kamal-day',
+//     'kamal-night', 'rajdhani-sunday',
+//     'andhra-morning', 'andhra-day',
+//     'andhra-night', 'bombay-rajshree-day',
+//     'bombay-rajshree-night', 'milan-bazar-morning',
+//     'milan-bazar-day', 'milan-bazar-night',
+//     'mahadevi-morning', 'mahadevi-night',
+//     'rajyog-day', 'rajyog-night',
+//     'gowa', 'royal-day',
+//     'mumbai-star-main'
+// ];
+
+// const result = arr.map(item => {
+//   return item
+//     .split('-') // Split the string into an array
+//     .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+//     .join(''); // Join the words back together
+// });
+
+// console.log(result); // Output: ["TaraMumbaiNight"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const arr = [
+    'milan-morning', 'sridevi', 'kalyan-morning',
+    'padmavathi', 'madhuri', 'sridevi-morning',
+    'maharani', 'prabhat', 'karnataka-day',
+    'time-bazar-morning', 'time-bazar', 'diamond',
+    'tara-mumbai-day', 'main-kalyan', 'time-bazar-day',
+    'milan-day', 'main-bazar-day', 'puna-bazar',
+    'kalyan', 'sridevi-night', 'diamond-night',
+    'madhuri-night', 'night-time-bazar', 'tara-mumbai-night',
+    'main-bazar-night', 'milan-night', 'rajdhani-night',
+    'main-bazar', 'maharani-day', 'sridevi-day',
+    'dhanshree', 'kalyan-night', 'kalyan-pro',
+    'gujrat', 'old-main-mumbai', 'rajlaxmi',
+    'madhur-morning', 'madhur-day', 'madhur-night',
+    'ratan-khatri', 'maharani-night', 'padmavati-night',
+    'jay-shree-day', 'sri-dhanalaxmi', 'dhanshree-day',
+    'main-bombay', 'sunday-bazar', 'sunday-bazar-night',
+    'super-goa-day', 'puna-night-main', 'khajana',
+    'sridevi-main', 'sridevi-main-night', 'supreme-morning',
+    'supreme-day', 'supreme-night', 'gujrat-night',
+    'dhanshree-night', 'bsf-bazar', 'sita-morning',
+    'kalyan-gold-night', 'bombay-day', 'srilakshmi',
+    'milan-bazar', 'ratan-day', 'chandan',
+    'maharashtra', 'worli', 'worli-mumbai-day',
+    'main-mumbai-rk', 'worli-mumbai', 'sita-day',
+    'satyam-mumbai', 'country-bazar', 'rose-bazar-day',
+    'rose-bazar-night', 'janta-morning', 'central-bombay',
+    'teen-patti', 'super-time', 'bhagyalaxmi',
+    'kaali', 'main-mumbai-night', 'super-matka',
+    'maharaj-time', 'maharaj-day', 'maharaj-night',
+    'bazar-day', 'bazar-night', 'rajdhani-day',
+    'puna-night', 'time-night', 'mohini',
+    'mumbai-star', 'kalyan-bazar', 'mahadevi',
+    'satyam-mumbai-evening', 'kalyan-gold', 'sita-night',
+    'kamal-morning', 'kamal-day',
+    'kamal-night', 'rajdhani-sunday',
+    'andhra-morning', 'andhra-day',
+    'andhra-night', 'bombay-rajshree-day',
+    'bombay-rajshree-night', 'milan-bazar-morning',
+    'milan-bazar-day', 'milan-bazar-night',
+    'mahadevi-morning', 'mahadevi-night',
+    'rajyog-day', 'rajyog-night',
+    'gowa', 'royal-day',
+    'mumbai-star-main'
+];
+
+// Function to capitalize words
+const capitalize = (item) => {
+    return item
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join('');
+};
+
+// Create URL paths and elements with a condition to remove quotes
+const routes = arr.map(item => {
+    const capitalized = capitalize(item);
+    const path = `${item}`;
+
+    // Check if the element should be wrapped in quotes or not
+    return {
+        path,
+        element: `${capitalized}`
+    };
+});
+
+// Log the results
+console.log(routes);
+
+
+
+
+
+
+
+
+
+
+
+
+// const routes = [
+//     '/panel-chart-record/kamal-morning.php',
+//     '/panel-chart-record/kamal-day.php',
+//     '/panel-chart-record/kamal-night.php',
+//     '/panel-chart-record/rajdhani-sunday.php',
+//     '/panel-chart-record/andhra-morning.php',
+//     '/panel-chart-record/andhra-day.php',
+//     '/panel-chart-record/andhra-night.php',
+//     '/panel-chart-record/bombay-rajshree-day.php',
+//     '/panel-chart-record/bombay-rajshree-night.php',
+//     '/panel-chart-record/milan-bazar-morning.php',
+//     '/panel-chart-record/milan-bazar-day.php',
+//     '/panel-chart-record/milan-bazar-night.php',
+//     '/panel-chart-record/mahadevi-morning.php',
+//     '/panel-chart-record/mahadevi-night.php',
+//     '/panel-chart-record/rajyog-day.php',
+//     '/panel-chart-record/rajyog-night.php',
+//     '/panel-chart-record/gowa.php',
+//     '/panel-chart-record/royal-day.php',
+//     '/panel-chart-record/mumbai-star-main.php',
+// ];
+
+// // Extract panel names
+// const panelNames = routes.map(route => {
+//     // Match the panel name pattern
+//     const match = route.match(/\/panel-chart-record\/([^\/]+)\.php/);
+//     return match ? match[1] : null; // Return the panel name without extension
+// }).filter(name => name !== null); // Filter out null values
+
+// console.log(panelNames);
+
+
+
+
+
