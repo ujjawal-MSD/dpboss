@@ -489,74 +489,74 @@ const puppeteer = require('puppeteer');
 
 
 
-const arr = [
-    'milan-morning', 'sridevi', 'kalyan-morning',
-    'padmavathi', 'madhuri', 'sridevi-morning',
-    'maharani', 'prabhat', 'karnataka-day',
-    'time-bazar-morning', 'time-bazar', 'diamond',
-    'tara-mumbai-day', 'main-kalyan', 'time-bazar-day',
-    'milan-day', 'main-bazar-day', 'puna-bazar',
-    'kalyan', 'sridevi-night', 'diamond-night',
-    'madhuri-night', 'night-time-bazar', 'tara-mumbai-night',
-    'main-bazar-night', 'milan-night', 'rajdhani-night',
-    'main-bazar', 'maharani-day', 'sridevi-day',
-    'dhanshree', 'kalyan-night', 'kalyan-pro',
-    'gujrat', 'old-main-mumbai', 'rajlaxmi',
-    'madhur-morning', 'madhur-day', 'madhur-night',
-    'ratan-khatri', 'maharani-night', 'padmavati-night',
-    'jay-shree-day', 'sri-dhanalaxmi', 'dhanshree-day',
-    'main-bombay', 'sunday-bazar', 'sunday-bazar-night',
-    'super-goa-day', 'puna-night-main', 'khajana',
-    'sridevi-main', 'sridevi-main-night', 'supreme-morning',
-    'supreme-day', 'supreme-night', 'gujrat-night',
-    'dhanshree-night', 'bsf-bazar', 'sita-morning',
-    'kalyan-gold-night', 'bombay-day', 'srilakshmi',
-    'milan-bazar', 'ratan-day', 'chandan',
-    'maharashtra', 'worli', 'worli-mumbai-day',
-    'main-mumbai-rk', 'worli-mumbai', 'sita-day',
-    'satyam-mumbai', 'country-bazar', 'rose-bazar-day',
-    'rose-bazar-night', 'janta-morning', 'central-bombay',
-    'teen-patti', 'super-time', 'bhagyalaxmi',
-    'kaali', 'main-mumbai-night', 'super-matka',
-    'maharaj-time', 'maharaj-day', 'maharaj-night',
-    'bazar-day', 'bazar-night', 'rajdhani-day',
-    'puna-night', 'time-night', 'mohini',
-    'mumbai-star', 'kalyan-bazar', 'mahadevi',
-    'satyam-mumbai-evening', 'kalyan-gold', 'sita-night',
-    'kamal-morning', 'kamal-day',
-    'kamal-night', 'rajdhani-sunday',
-    'andhra-morning', 'andhra-day',
-    'andhra-night', 'bombay-rajshree-day',
-    'bombay-rajshree-night', 'milan-bazar-morning',
-    'milan-bazar-day', 'milan-bazar-night',
-    'mahadevi-morning', 'mahadevi-night',
-    'rajyog-day', 'rajyog-night',
-    'gowa', 'royal-day',
-    'mumbai-star-main'
-];
+// const arr = [
+//     'milan-morning', 'sridevi', 'kalyan-morning',
+//     'padmavathi', 'madhuri', 'sridevi-morning',
+//     'maharani', 'prabhat', 'karnataka-day',
+//     'time-bazar-morning', 'time-bazar', 'diamond',
+//     'tara-mumbai-day', 'main-kalyan', 'time-bazar-day',
+//     'milan-day', 'main-bazar-day', 'puna-bazar',
+//     'kalyan', 'sridevi-night', 'diamond-night',
+//     'madhuri-night', 'night-time-bazar', 'tara-mumbai-night',
+//     'main-bazar-night', 'milan-night', 'rajdhani-night',
+//     'main-bazar', 'maharani-day', 'sridevi-day',
+//     'dhanshree', 'kalyan-night', 'kalyan-pro',
+//     'gujrat', 'old-main-mumbai', 'rajlaxmi',
+//     'madhur-morning', 'madhur-day', 'madhur-night',
+//     'ratan-khatri', 'maharani-night', 'padmavati-night',
+//     'jay-shree-day', 'sri-dhanalaxmi', 'dhanshree-day',
+//     'main-bombay', 'sunday-bazar', 'sunday-bazar-night',
+//     'super-goa-day', 'puna-night-main', 'khajana',
+//     'sridevi-main', 'sridevi-main-night', 'supreme-morning',
+//     'supreme-day', 'supreme-night', 'gujrat-night',
+//     'dhanshree-night', 'bsf-bazar', 'sita-morning',
+//     'kalyan-gold-night', 'bombay-day', 'srilakshmi',
+//     'milan-bazar', 'ratan-day', 'chandan',
+//     'maharashtra', 'worli', 'worli-mumbai-day',
+//     'main-mumbai-rk', 'worli-mumbai', 'sita-day',
+//     'satyam-mumbai', 'country-bazar', 'rose-bazar-day',
+//     'rose-bazar-night', 'janta-morning', 'central-bombay',
+//     'teen-patti', 'super-time', 'bhagyalaxmi',
+//     'kaali', 'main-mumbai-night', 'super-matka',
+//     'maharaj-time', 'maharaj-day', 'maharaj-night',
+//     'bazar-day', 'bazar-night', 'rajdhani-day',
+//     'puna-night', 'time-night', 'mohini',
+//     'mumbai-star', 'kalyan-bazar', 'mahadevi',
+//     'satyam-mumbai-evening', 'kalyan-gold', 'sita-night',
+//     'kamal-morning', 'kamal-day',
+//     'kamal-night', 'rajdhani-sunday',
+//     'andhra-morning', 'andhra-day',
+//     'andhra-night', 'bombay-rajshree-day',
+//     'bombay-rajshree-night', 'milan-bazar-morning',
+//     'milan-bazar-day', 'milan-bazar-night',
+//     'mahadevi-morning', 'mahadevi-night',
+//     'rajyog-day', 'rajyog-night',
+//     'gowa', 'royal-day',
+//     'mumbai-star-main'
+// ];
 
-// Function to capitalize words
-const capitalize = (item) => {
-    return item
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('');
-};
+// // Function to capitalize words
+// const capitalize = (item) => {
+//     return item
+//         .split('-')
+//         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+//         .join('');
+// };
 
-// Create URL paths and elements with a condition to remove quotes
-const routes = arr.map(item => {
-    const capitalized = capitalize(item);
-    const path = `${item}`;
+// // Create URL paths and elements with a condition to remove quotes
+// const routes = arr.map(item => {
+//     const capitalized = capitalize(item);
+//     const path = `${item}`;
 
-    // Check if the element should be wrapped in quotes or not
-    return {
-        path,
-        element: `${capitalized}`
-    };
-});
+//     // Check if the element should be wrapped in quotes or not
+//     return {
+//         path,
+//         element: `${capitalized}`
+//     };
+// });
 
-// Log the results
-console.log(routes);
+// // Log the results
+// console.log(routes);
 
 
 
@@ -604,3 +604,101 @@ console.log(routes);
 
 
 
+
+
+
+
+
+const axios = require('axios');
+const cheerio = require('cheerio');
+const fs = require('fs');
+
+// URL validation function
+const isValidUrl = (url) => {
+  if (url.startsWith('#')) {
+    return false; // Ignore URLs that start with '#'
+  }
+
+  if (url.startsWith('https://dpbossss.services')) {
+    return true; // Valid if it contains "https://" and "dpbossss.services"
+  }
+
+
+  if (url.startsWith('https://') && !url?.includes('dpbossss.services')) {
+    return false; // Valid if it contains "https://" and "dpbossss.services"
+  }
+
+  if (url.startsWith('mailto')) {
+    return false; // Valid if it contains "https://" and "dpbossss.services"
+  }
+
+  if (url.startsWith('/') || /^[a-zA-Z]/.test(url)) {
+    return true; // Valid if it starts with '/' or any letter
+  }
+
+  return false; // Invalid URL
+};
+
+// Function to fetch HTML and extract all valid anchor tag URLs
+const fetchAnchorUrls = async (url) => {
+  try {
+    const { data: html } = await axios.get(url); // Fetch the HTML
+    const $ = cheerio.load(html); // Load HTML into cheerio
+
+    const urls = [];
+
+    // Extract all anchor tags' href attributes
+    $('a').each((index, element) => {
+      const href = $(element).attr('href');
+      if (href && isValidUrl(href)) {
+        urls.push(href); // Add valid URLs to the array
+      }
+    });
+
+    return urls;
+  } catch (error) {
+    console.error(`Error fetching ${url}:`, error.message);
+    return [];
+  }
+};
+
+// Function to store URLs into a .js file
+const storeUrlsToFile = (urls, fileName) => {
+  const fileContent = `const urls = ${JSON.stringify(urls, null, 2)};\n\nmodule.exports = urls;`;
+
+  fs.writeFile(fileName, fileContent, (err) => {
+    if (err) {
+      console.error(`Error writing to file ${fileName}:`, err.message);
+    } else {
+      console.log(`URLs saved to ${fileName}`);
+    }
+  });
+};
+
+// Example usage:
+const baseUrl = 'https://dpbossss.services'; // Replace with your target URL
+const outputFileName = 'urls.js'; // File to store URLs
+
+// Fetch anchor tags and store them into a file
+(async () => {
+  const urls = await fetchAnchorUrls(baseUrl); // Fetch URLs from the page
+  storeUrlsToFile(urls, outputFileName); // Store URLs in the file
+})();
+
+
+
+
+
+
+
+// function extractPathFromUrl(url) {
+//     // Use regular expression to match the part of the URL before .php
+//     const match = url.match(/\/([^\/]+)\.php$/);
+//     return match ? match[1] : null; // If found, return the match; otherwise, return null
+//   }
+  
+//   // Example usage:
+//   const url = 'panel-chart-record/madhur-morning.php';
+//   const result = extractPathFromUrl(url);
+//   console.log(result); // Output: "milan-morning"
+  

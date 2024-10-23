@@ -2,6 +2,8 @@
 // let array = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
 // let i = -1;
 
+const panelDataModel = require("./models/panelDataModel");
+
 // let nextValue = () => {
 // i++;
 // if (i <Jodi array.length) {
@@ -349,348 +351,126 @@ var data = 'Hello';
 
 
 
+// const axios = require('axios');
+// const cheerio = require('cheerio');
+// const fs = require('fs');
+// const path = require('path');
+
+// const baseUrl = 'https://dpbossss.services'; // Base URL
+// const visitedUrls = new Set(); // Track visited URLs
+// const outputFolder = 'html_files'; // Folder to store HTML files
+
+// // Create output folder if it doesn't exist
+// if (!fs.existsSync(outputFolder)) {
+//   fs.mkdirSync(outputFolder);
+// }
+
+// const fetchHtml = async (url) => {
+//   try {
+//     const { data } = await axios.get(url);
+//     return data;
+//   } catch (error) {
+//     console.error(`Error fetching ${url}:`, error.message);
+//     return null; // Return null if an error occurs
+//   }
+// };
+
+// const saveHtmlToFile = (url, html) => {
+//   const panelName = url.replace(baseUrl, '').replace(/\/$/, '').replace(/\//g, '-'); // Create a safe file name
+//   const filePath = path.join(outputFolder, `${panelName}.html`); // Create file path
+
+//   fs.writeFile(filePath, html, (err) => {
+//     if (err) {
+//       console.error(`Error writing to file ${filePath}:`, err.message);
+//     } else {
+//       console.log(`Saved: ${filePath}`);
+//     }
+//   });
+// };
+
+
+
+// // Check if the URL is valid according to specified conditions
+// const isValidUrl = (url) => {
+//   if (url.startsWith('#')) {
+//     return false; // Ignore URLs that start with '#'
+//   }
+
+//   if (url.startsWith('https://') && url.includes('dpbossss.services')) {
+//     return true; // Valid if it contains "https://" and "dpbossss.services"
+//   }
+
+//   if (url.startsWith('/') || /^[a-zA-Z]/.test(url)) {
+//     return true; // Valid if it starts with '/' or any letter
+//   }
+
+//   return false; // Invalid URL
+// };
 
 
 
 
 
+// const crawl = async (url) => {
+//   if (visitedUrls.has(url)) return; // Skip already visited URLs
+//   visitedUrls.add(url); // Mark the URL as visited
 
-const axios = require('axios');
-const cheerio = require('cheerio');
-const fs = require('fs');
-const path = require('path');
+//   const html = await fetchHtml(url);
+//   if (!html) return; // If HTML is not fetched, skip
 
-const dotenv = require('dotenv');
-dotenv.config();
+//   saveHtmlToFile(url, html); // Save HTML to file
 
-// Define your URLs here
-const urls = [
-  "https://dpbossss.services/panel-chart-record/main-bazar-day.php",
-  "https://dpbossss.services/jodi-chart-record/mumbai-morning.php",
+//   const $ = cheerio.load(html); // Load HTML with Cheerio
 
+//   // Find all anchor links on the page
+//   const links = [];
+//   $('a').each((index, element) => {
+//     const link = $(element).attr('href');
+//     if (link) {
+//       let fullUrl;
 
+//       if (link.startsWith('/')) {
+//         fullUrl = new URL(link, baseUrl).href; // Create full URL from relative path
+//       } else if (link.startsWith('https://')) {
+//         fullUrl = link; // Absolute URL
+//       } else {
+//         fullUrl = new URL(link, baseUrl).href; // Create full URL from non-relative link
+//       }
 
-  "https://dpbossss.services/panel-chart-record/milan-morning.php",
-  "https://dpbossss.services/panel-chart-record/sridevi.php",
-  "https://dpbossss.services/panel-chart-record/kalyan-morning.php",
-  "https://dpbossss.services/panel-chart-record/padmavati.php",
-  "https://dpbossss.services/panel-chart-record/madhuri.php",
-  "https://dpbossss.services/panel-chart-record/sridevi-morning.php",
-  "https://dpbossss.services/panel-chart-record/maharani.php",
-  "https://dpbossss.services/panel-chart-record/prabhat.php",
-  "https://dpbossss.services/panel-chart-record/karnataka-day.php",
-  "https://dpbossss.services/panel-chart-record/time-bazar-morning.php",
-  "https://dpbossss.services/panel-chart-record/time-bazar.php",
-  "https://dpbossss.services/panel-chart-record/diamond.php",
-  "https://dpbossss.services/panel-chart-record/tara-mumbai-day.php",
-  "https://dpbossss.services/panel-chart-record/main-kalyan.php",
-  "https://dpbossss.services/panel-chart-record/time-bazar-day.php",
-  "https://dpbossss.services/panel-chart-record/milan-day.php",
-  "https://dpbossss.services/panel-chart-record/main-bazar-day.php",
-  "https://dpbossss.services/panel-chart-record/puna-bazar.php",
-  "https://dpbossss.services/panel-chart-record/kalyan.php",
-  "https://dpbossss.services/panel-chart-record/sridevi-night.php",
-  "https://dpbossss.services/panel-chart-record/diamond-night.php",
-  "https://dpbossss.services/panel-chart-record/madhuri-night.php",
-  "https://dpbossss.services/panel-chart-record/night-time-bazar.php",
-  "https://dpbossss.services/panel-chart-record/tara-mumbai-night.php",
-  "https://dpbossss.services/panel-chart-record/main-bazar-night.php",
-  "https://dpbossss.services/panel-chart-record/milan-night.php",
-  "https://dpbossss.services/panel-chart-record/rajdhani-night.php",
-  "https://dpbossss.services/panel-chart-record/main-bazar.php",
-  "https://dpbossss.services/panel-chart-record/maharani-day.php",
-  "https://dpbossss.services/panel-chart-record/sridevi-day.php",
-  "https://dpbossss.services/panel-chart-record/dhanshree.php",
-  "https://dpbossss.services/panel-chart-record/kalyan-night.php",
-  "https://dpbossss.services/panel-chart-record/kalyan-pro.php",
-  "https://dpbossss.services/panel-chart-record/gujrat.php",
-  "https://dpbossss.services/panel-chart-record/old-main-mumbai.php",
-  "https://dpbossss.services/panel-chart-record/rajlaxmi.php",
-  "https://dpbossss.services/panel-chart-record/madhur-morning.php",
-  "https://dpbossss.services/panel-chart-record/madhur-day.php",
-  "https://dpbossss.services/panel-chart-record/madhur-night.php",
-  "https://dpbossss.services/panel-chart-record/ratan-khatri.php",
-  "https://dpbossss.services/panel-chart-record/maharani-night.php",
-  "https://dpbossss.services/panel-chart-record/padmavati-night.php",
-  "https://dpbossss.services/panel-chart-record/jay-shree-day.php",
-  "https://dpbossss.services/panel-chart-record/sri-dhanalaxmi.php",
-  "https://dpbossss.services/panel-chart-record/dhanshree-day.php",
-  "https://dpbossss.services/panel-chart-record/main-bombay.php",
-  "https://dpbossss.services/panel-chart-record/sunday-bazar.php",
-  "https://dpbossss.services/panel-chart-record/sunday-bazar-night.php",
-  "https://dpbossss.services/panel-chart-record/super-goa-day.php",
-  "https://dpbossss.services/panel-chart-record/puna-night-main.php",
-  "https://dpbossss.services/panel-chart-record/khajana.php",
-  "https://dpbossss.services/panel-chart-record/sridevi-main.php",
-  "https://dpbossss.services/panel-chart-record/sridevi-main-night.php",
-  "https://dpbossss.services/panel-chart-record/supreme-morning.php",
-  "https://dpbossss.services/panel-chart-record/supreme-day.php",
-  "https://dpbossss.services/panel-chart-record/supreme-night.php",
-  "https://dpbossss.services/panel-chart-record/gujrat-night.php",
-  "https://dpbossss.services/panel-chart-record/dhanshree-night.php",
-  "https://dpbossss.services/panel-chart-record/bsf-bazar.php",
-  "https://dpbossss.services/panel-chart-record/sita-morning.php",
-  "https://dpbossss.services/panel-chart-record/kalyan-gold-night.php",
-  "https://dpbossss.services/panel-chart-record/bombay-day.php",
-  "https://dpbossss.services/panel-chart-record/srilakshmi.php",
-  "https://dpbossss.services/panel-chart-record/milan-bazar.php",
-  "https://dpbossss.services/panel-chart-record/ratan-day.php",
-  "https://dpbossss.services/panel-chart-record/chandan.php",
-  "https://dpbossss.services/panel-chart-record/maharashtra.php",
-  "https://dpbossss.services/panel-chart-record/worli.php",
-  "https://dpbossss.services/panel-chart-record/worli-mumbai-day.php",
-  "https://dpbossss.services/panel-chart-record/main-mumbai-rk.php",
-  "https://dpbossss.services/panel-chart-record/worli-mumbai.php",
-  "https://dpbossss.services/panel-chart-record/sita-day.php",
-  "https://dpbossss.services/panel-chart-record/satyam-mumbai.php",
-  "https://dpbossss.services/panel-chart-record/country-bazar.php",
-  "https://dpbossss.services/panel-chart-record/rose-bazar-day.php",
-  "https://dpbossss.services/panel-chart-record/rose-bazar-night.php",
-  "https://dpbossss.services/panel-chart-record/janta-morning.php",
-  "https://dpbossss.services/panel-chart-record/central-bombay.php",
-  "https://dpbossss.services/panel-chart-record/teen-patti.php",
-  "https://dpbossss.services/panel-chart-record/super-time.php",
-  "https://dpbossss.services/panel-chart-record/bhagyalaxmi.php",
-  "https://dpbossss.services/panel-chart-record/kaali.php",
-  "https://dpbossss.services/panel-chart-record/main-mumbai-night.php",
-  "https://dpbossss.services/panel-chart-record/super-matka.php",
-  "https://dpbossss.services/panel-chart-record/maharaj-time.php",
-  "https://dpbossss.services/panel-chart-record/maharaj-day.php",
-  "https://dpbossss.services/panel-chart-record/maharaj-night.php",
-  "https://dpbossss.services/panel-chart-record/bazar-day.php",
-  "https://dpbossss.services/panel-chart-record/bazar-night.php",
-  "https://dpbossss.services/panel-chart-record/rajdhani-day.php",
-  "https://dpbossss.services/panel-chart-record/puna-night.php",
-  "https://dpbossss.services/panel-chart-record/time-night.php",
-  "https://dpbossss.services/panel-chart-record/mohini.php",
-  "https://dpbossss.services/panel-chart-record/mumbai-star.php",
-  "https://dpbossss.services/panel-chart-record/kalyan-bazar.php",
-  "https://dpbossss.services/panel-chart-record/main-bazar-morning.php",
-  "https://dpbossss.services/panel-chart-record/mahadevi.php",
-  "https://dpbossss.services/panel-chart-record/satyam-mumbai-evening.php",
-  "https://dpbossss.services/panel-chart-record/kalyan-gold.php",
-  "https://dpbossss.services/panel-chart-record/sita-night.php",
-  "https://dpbossss.services/panel-chart-record/kamal-morning.php",
-  "https://dpbossss.services/panel-chart-record/kamal-day.php",
-  "https://dpbossss.services/panel-chart-record/kamal-night.php",
-  "https://dpbossss.services/panel-chart-record/rajdhani-sunday.php",
-  "https://dpbossss.services/panel-chart-record/andhra-morning.php",
-  "https://dpbossss.services/panel-chart-record/andhra-day.php",
-  "https://dpbossss.services/panel-chart-record/andhra-night.php",
-  "https://dpbossss.services/panel-chart-record/bombay-rajshree-day.php",
-  "https://dpbossss.services/panel-chart-record/bombay-rajshree-night.php",
-  "https://dpbossss.services/panel-chart-record/bombay-rajshree-morning.php",
-  "https://dpbossss.services/panel-chart-record/milan-bazar-day.php",
-  "https://dpbossss.services/panel-chart-record/milan-bazar-night.php",
-  "https://dpbossss.services/panel-chart-record/mahadevi-morning.php",
-  "https://dpbossss.services/panel-chart-record/mahadevi-night.php",
-  "https://dpbossss.services/panel-chart-record/rajyog-day.php",
-  "https://dpbossss.services/panel-chart-record/rajyog-night.php",
-  "https://dpbossss.services/panel-chart-record/gowa.php",
-  "https://dpbossss.services/panel-chart-record/royal-day.php",
-  "https://dpbossss.services/panel-chart-record/mumbai-star-main.php",
+//       // Check if the URL is valid
+//       if (isValidUrl(fullUrl)) {
+//         links.push(fullUrl); // Add to links array if valid
+//       }
+//     }
+//   });
+
+//   // Only process links from the base URL
+//   const baseLinks = links.filter(link => link.startsWith(baseUrl));
+
+//   // Save HTML for each link found in the base URL
+//   for (const link of baseLinks) {
+//     await new Promise(resolve => setTimeout(resolve, 10)); // Wait for 1 second between requests
+//     const htmlForLink = await fetchHtml(link);
+//     if (htmlForLink) {
+//       saveHtmlToFile(link, htmlForLink); // Save HTML to file
+//     }
+//   }
+// };
+
+// const startCrawl = async () => {
+//   await crawl(baseUrl); // Start crawling from the base URL
+// };
+
+// startCrawl();
 
 
 
+const mongoose = require('./config/mongodbConfig');
 
 
 
-  // Jodi Panels Links  
-  "https://dpbossss.services/jodi-chart-record/milan-morning.php",
-  "https://dpbossss.services/jodi-chart-record/sridevi.php",
-  "https://dpbossss.services/jodi-chart-record/kalyan-morning.php",
-  "https://dpbossss.services/jodi-chart-record/padmavati.php",
-  "https://dpbossss.services/jodi-chart-record/madhuri.php",
-  "https://dpbossss.services/jodi-chart-record/sridevi-morning.php",
-  "https://dpbossss.services/jodi-chart-record/maharani.php",
-  "https://dpbossss.services/jodi-chart-record/prabhat.php",
-  "https://dpbossss.services/jodi-chart-record/karnataka-day.php",
-  "https://dpbossss.services/jodi-chart-record/time-bazar-morning.php",
-  "https://dpbossss.services/jodi-chart-record/time-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/diamond.php",
-  "https://dpbossss.services/jodi-chart-record/tara-mumbai-day.php",
-  "https://dpbossss.services/jodi-chart-record/main-kalyan.php",
-  "https://dpbossss.services/jodi-chart-record/time-bazar-day.php",
-  "https://dpbossss.services/jodi-chart-record/milan-day.php",
-  "https://dpbossss.services/jodi-chart-record/main-bazar-day.php",
-  "https://dpbossss.services/jodi-chart-record/puna-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/kalyan.php",
-  "https://dpbossss.services/jodi-chart-record/sridevi-night.php",
-  "https://dpbossss.services/jodi-chart-record/diamond-night.php",
-  "https://dpbossss.services/jodi-chart-record/madhuri-night.php",
-  "https://dpbossss.services/jodi-chart-record/night-time-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/tara-mumbai-night.php",
-  "https://dpbossss.services/jodi-chart-record/main-bazar-night.php",
-  "https://dpbossss.services/jodi-chart-record/milan-night.php",
-  "https://dpbossss.services/jodi-chart-record/rajdhani-night.php",
-  "https://dpbossss.services/jodi-chart-record/main-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/maharani-day.php",
-  "https://dpbossss.services/jodi-chart-record/sridevi-day.php",
-  "https://dpbossss.services/jodi-chart-record/dhanshree.php",
-  "https://dpbossss.services/jodi-chart-record/kalyan-night.php",
-  "https://dpbossss.services/jodi-chart-record/kalyan-pro.php",
-  "https://dpbossss.services/jodi-chart-record/gujrat.php",
-  "https://dpbossss.services/jodi-chart-record/old-main-mumbai.php",
-  "https://dpbossss.services/jodi-chart-record/rajlaxmi.php",
-  "https://dpbossss.services/jodi-chart-record/madhur-morning.php",
-  "https://dpbossss.services/jodi-chart-record/madhur-day.php",
-  "https://dpbossss.services/jodi-chart-record/madhur-night.php",
-  "https://dpbossss.services/jodi-chart-record/ratan-khatri.php",
-  "https://dpbossss.services/jodi-chart-record/maharani-night.php",
-  "https://dpbossss.services/jodi-chart-record/padmavati-night.php",
-  "https://dpbossss.services/jodi-chart-record/jay-shree-day.php",
-  "https://dpbossss.services/jodi-chart-record/sri-dhanalaxmi.php",
-  "https://dpbossss.services/jodi-chart-record/dhanshree-day.php",
-  "https://dpbossss.services/jodi-chart-record/main-bombay.php",
-  "https://dpbossss.services/jodi-chart-record/sunday-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/sunday-bazar-night.php",
-  "https://dpbossss.services/jodi-chart-record/super-goa-day.php",
-  "https://dpbossss.services/jodi-chart-record/puna-night-main.php",
-  "https://dpbossss.services/jodi-chart-record/khajana.php",
-  "https://dpbossss.services/jodi-chart-record/sridevi-main.php",
-  "https://dpbossss.services/jodi-chart-record/sridevi-main-night.php",
-  "https://dpbossss.services/jodi-chart-record/supreme-morning.php",
-  "https://dpbossss.services/jodi-chart-record/supreme-day.php",
-  "https://dpbossss.services/jodi-chart-record/supreme-night.php",
-  "https://dpbossss.services/jodi-chart-record/gujrat-night.php",
-  "https://dpbossss.services/jodi-chart-record/dhanshree-night.php",
-  "https://dpbossss.services/jodi-chart-record/bsf-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/sita-morning.php",
-  "https://dpbossss.services/jodi-chart-record/kalyan-gold-night.php",
-  "https://dpbossss.services/jodi-chart-record/bombay-day.php",
-  "https://dpbossss.services/jodi-chart-record/srilakshmi.php",
-  "https://dpbossss.services/jodi-chart-record/milan-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/ratan-day.php",
-  "https://dpbossss.services/jodi-chart-record/chandan.php",
-  "https://dpbossss.services/jodi-chart-record/maharashtra.php",
-  "https://dpbossss.services/jodi-chart-record/worli.php",
-  "https://dpbossss.services/jodi-chart-record/worli-mumbai-day.php",
-  "https://dpbossss.services/jodi-chart-record/main-mumbai-rk.php",
-  "https://dpbossss.services/jodi-chart-record/worli-mumbai.php",
-  "https://dpbossss.services/jodi-chart-record/sita-day.php",
-  "https://dpbossss.services/jodi-chart-record/satyam-mumbai.php",
-  "https://dpbossss.services/jodi-chart-record/country-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/rose-bazar-day.php",
-  "https://dpbossss.services/jodi-chart-record/rose-bazar-night.php",
-  "https://dpbossss.services/jodi-chart-record/janta-morning.php",
-  "https://dpbossss.services/jodi-chart-record/central-bombay.php",
-  "https://dpbossss.services/jodi-chart-record/teen-patti.php",
-  "https://dpbossss.services/jodi-chart-record/super-time.php",
-  "https://dpbossss.services/jodi-chart-record/bhagyalaxmi.php",
-  "https://dpbossss.services/jodi-chart-record/kaali.php",
-  "https://dpbossss.services/jodi-chart-record/main-mumbai-night.php",
-  "https://dpbossss.services/jodi-chart-record/super-matka.php",
-  "https://dpbossss.services/jodi-chart-record/maharaj-time.php",
-  "https://dpbossss.services/jodi-chart-record/maharaj-day.php",
-  "https://dpbossss.services/jodi-chart-record/maharaj-night.php",
-  "https://dpbossss.services/jodi-chart-record/bazar-day.php",
-  "https://dpbossss.services/jodi-chart-record/bazar-night.php",
-  "https://dpbossss.services/jodi-chart-record/rajdhani-day.php",
-  "https://dpbossss.services/jodi-chart-record/puna-night.php",
-  "https://dpbossss.services/jodi-chart-record/time-night.php",
-  "https://dpbossss.services/jodi-chart-record/mohini.php",
-  "https://dpbossss.services/jodi-chart-record/mumbai-star.php",
-  "https://dpbossss.services/jodi-chart-record/kalyan-bazar.php",
-  "https://dpbossss.services/jodi-chart-record/main-bazar-morning.php",
-  "https://dpbossss.services/jodi-chart-record/mahadevi.php",
-  "https://dpbossss.services/jodi-chart-record/satyam-mumbai-evening.php",
-  "https://dpbossss.services/jodi-chart-record/kalyan-gold.php",
-  "https://dpbossss.services/jodi-chart-record/sita-night.php",
-  "https://dpbossss.services/jodi-chart-record/kamal-morning.php",
-  "https://dpbossss.services/jodi-chart-record/kamal-day.php",
-  "https://dpbossss.services/jodi-chart-record/kamal-night.php",
-  "https://dpbossss.services/jodi-chart-record/rajdhani-sunday.php",
-  "https://dpbossss.services/jodi-chart-record/andhra-morning.php",
-  "https://dpbossss.services/jodi-chart-record/andhra-day.php",
-  "https://dpbossss.services/jodi-chart-record/andhra-night.php",
-  "https://dpbossss.services/jodi-chart-record/bombay-rajshree-day.php",
-  "https://dpbossss.services/jodi-chart-record/bombay-rajshree-night.php",
-  "https://dpbossss.services/jodi-chart-record/bombay-rajshree-morning.php",
-  "https://dpbossss.services/jodi-chart-record/milan-bazar-day.php",
-  "https://dpbossss.services/jodi-chart-record/milan-bazar-night.php",
-  "https://dpbossss.services/jodi-chart-record/mahadevi-morning.php",
-  "https://dpbossss.services/jodi-chart-record/mahadevi-night.php",
-  "https://dpbossss.services/jodi-chart-record/rajyog-day.php",
-  "https://dpbossss.services/jodi-chart-record/rajyog-night.php",
-  "https://dpbossss.services/jodi-chart-record/gowa.php",
-  "https://dpbossss.services/jodi-chart-record/royal-day.php",
-  "https://dpbossss.services/jodi-chart-record/mumbai-star-main.php"
-  // ... other URLs ...
-];
+(async () => {
+  let resp = await panelDataModel.find({}, { url: 1, _id: 0 })
+  console.log('resp: ', resp);
 
-const modifiedHtmlContent = [];
-const maxRetries = 3;
-
-// Load environment variables
-const siteUrl = process.env.SITE_URL;
-const frontendUrl = process.env.FRONTEND_URL;
-
-if (!siteUrl || !frontendUrl) {
-  console.error('SITE_URL and FRONTEND_URL must be defined in environment variables.');
-  process.exit(1);
-}
-
-async function fetchHtml(url, index) {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-    //   console.log(`Attempting to fetch URL ${url} for the ${attempt} time.`);
-      
-      // Create the full URL
-      const fullUrl = new URL(url).toString(); 
-    //   console.log(`Fetching URL: ${fullUrl}`);
-      
-      const response = await axios.get(fullUrl);
-      const htmlContent = response.data;
-      const modifiedContent = htmlContent
-        .replaceAll(siteUrl, frontendUrl)
-        .replaceAll(/Boss|dpbossss.services|DPBOSS\.Services|DPBOSS|dpboss|dp|boss|DP|DP\sBOSS|DpBossss\.services/gi, 'WOLF247');
-
-      modifiedHtmlContent[index] = modifiedContent;
-      console.log(`Data for URL ${url} collected successfully.`);
-
-      // Save modified HTML to a file
-      const folderName = 'files';
-
-      // Create the folder if it doesn't exist
-      if (!fs.existsSync(folderName)) {
-        fs.mkdirSync(folderName);
-      }
-      
-      // Save modified HTML to a file inside the folder
-      const filePath = path.resolve(folderName, `output_${index}.html`);
-      fs.writeFileSync(filePath, modifiedContent, 'utf8');
-      console.log(`Saved HTML content to ${filePath}`);
-
-      return; // Exit the function on successful fetch
-    } catch (error) {
-      console.error(`Error fetching URL ${url} on attempt ${attempt}:`, error.message);
-      if (attempt === maxRetries) {
-        console.error(`Failed to fetch URL ${url} after ${maxRetries} attempts.`);
-        modifiedHtmlContent[index] = await getErrorHtmlContent();
-      } else {
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait before retrying
-      }
-    }
-  }
-}
-
-async function getErrorHtmlContent() {
-  try {
-    const errorHtmlPath = path.resolve('./e2.html');
-    const errorHtmlContent = fs.readFileSync(errorHtmlPath, 'utf8');
-    return errorHtmlContent;
-  } catch (error) {
-    console.error('Error reading e2.html file:', error.message);
-    return '<html><body><h1>Error occurred while fetching the page</h1></body></html>';
-  }
-}
-
-async function startScraping() {
-  for (let i = 0; i < urls.length; i++) {
-    await fetchHtml(urls[i], i);
-  }
-}
-
-startScraping()
-  .then(() => console.log('Scraping completed.'))
-  .catch(err => console.error('Error during scraping:', err));
+})()

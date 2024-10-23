@@ -1,55 +1,24 @@
-const PanelOne = require('../models/panelOneModel');
-const PanelTwo = require('../models/panelTwoModel');
-const PanelThree = require('../models/panelThreeModel');
-const PanelFour = require('../models/panelFourModel');
+const PanelData = require('../models/panelDataModel'); // Single collection where all panel data is stored
 
-// const redis = require('../config/redisConfig');
-
-// Define a single function to handle all panel names
+// Define a single function to handle fetching panel data by URL
 const getPanelData = async (req, res) => {
-    const panelName = req.params.panelName;
+    const payload = req.body; // This should match the 'url' field in the database
+    console.log('panelName: ', payload);
 
     try {
-        //retrive data from redis
-        // var panelData = await redis.get(panelName);
+        // Find the panel data by matching the 'url' field with the payload.url param
+        const panelData = await PanelData.findOne({ url: payload.url }, { html: 1, _id: 0 }); // Return only the 'html' field
 
-        // if (!panelData) {
-        //     return res.status(404).send('Panel data not found in Redis');
-        // }
-
-        // // Create a JSON object with the key and data
-        // let pdata = panelData;
-        // let response = { [panelName]: pdata };
-
-        // // Send the response
-        // res.json(response);
-
-        //retrive data from redis
-
-
-
-        let panelData;
-        if (panelName in PanelOne.schema.paths) {
-            panelData = await PanelOne.findOne({}, { [panelName]: 1 });
-        } else if (panelName in PanelTwo.schema.paths) {
-            panelData = await PanelTwo.findOne({}, { [panelName]: 1 });
-        } else if (panelName in PanelThree.schema.paths) {
-            panelData = await PanelThree.findOne({}, { [panelName]: 1 });
-        } else if (panelName in PanelFour.schema.paths) {
-            panelData = await PanelFour.findOne({}, { [panelName]: 1 });
-        } else {
-            return res.status(404).send('Panel not found');
-        }
-
+        // If no panel data is found, return a 404
         if (!panelData) {
             return res.status(404).send('Panel not found');
         }
 
-
-        res.json(panelData);
+        // Send the HTML content as a response
+        return res.json(panelData);
     } catch (error) {
         console.error('Error:', error.message);
-        res.status(500).send('Internal Server Error');
+        return res.status(500).send('Internal Server Error');
     }
 };
 

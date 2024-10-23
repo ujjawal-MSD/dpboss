@@ -1,18 +1,20 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const getHtmlTags  = require('./api/scrap');
-const mongoose  = require('./config/mongodbConfig');
+require('./config/mongodbConfig');
 // const redis  = require('./config/redisConfig');
-const {storeHtmlTags} = require('./controller/apiController'); 
+// const {storeHtmlTags} = require('./controller/apiController'); 
 const panelRouter = require('./routes/apiRoutes');
+// const { startScraping } = require('./services/process');
+// const { processHtmlContent } = require('./services/process');
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
-storeHtmlTags();
+// startScraping();
 
 const PORT = process.env.PORT || 9000;
 

@@ -7,12 +7,12 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await sendRequest('GET', '/Home')
+      const response = await sendRequest('POST', '/get-html',{url:"/"})
         .catch((error) => {
           console.error('Error:', error.message);
         });
       // console.log('Api Call');
-      setHtmlData(response.Home)
+      setHtmlData(response.html)
       console.log('got response');
     }
     fetchData();
