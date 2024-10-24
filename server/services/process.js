@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const PanelData = require('../models/panelDataModel');
 const zlib = require('zlib');
 dotenv.config();
-const mongoose  = require('../config/mongodbConfig');
+const mongoose = require('../config/mongodbConfig');
 
 
 let baseUrl = ensureTrailingSlash(process.env.SITE_URL)
@@ -30,6 +30,7 @@ async function startScraping() {
         console.log('href:', href, 'processedUrl:', processedUrl);
         if (processedUrl) {
           await update_htmlcontent(baseUrl, processedUrl)
+          await delay(3000)
         }
       }
     }
@@ -51,12 +52,11 @@ async function update_htmlcontent(baseUrl, processedUrl) {
   const compressedHtml = await zlib.gzipSync(modifiedHtmlContent).toString('base64');
   // If no document exists for this URL, create a new one
 
-  await PanelData.updateOne({ url: processedUrl }, {
-    $setOnInsert: {
-      url: processedUrl,
-      html: compressedHtml
-    }
-  }, { upsert: true })
+  await PanelData.updateOne(
+    { url: processedUrl }, // Query to find the document
+    { $set: { html: compressedHtml } }, // Update the 'html' field
+    { upsert: true } // Insert if the document does not exist
+  );
 }
 
 function delay(ms) {
