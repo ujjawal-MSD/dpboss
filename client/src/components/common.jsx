@@ -39,19 +39,9 @@ const HtmlRenderer = ({ html }) => {
 
 // Common Component
 const Common = () => {
-  // const { panelName } = useParams();
   const [htmlData, setHtmlData] = useState("");
   const [isHave, setIsHave] = useState(true);
 
-  // const cleanPanelName = (name) => {
-  //   return name
-  //     .replace(".php", "")
-  //     .split("-")
-  //     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
-  //     .join("");
-  // };
-
-  // const cleanedName = cleanPanelName(panelName);
   const cleanedName = window.location.pathname.replace("/", "");
 
   useEffect(() => {
@@ -60,7 +50,6 @@ const Common = () => {
         const response = await sendRequest("POST", `/get-html`, {
           url: cleanedName,
         });
-        // setIsHave(true);
         setHtmlData(response.html);
         console.log("HTML data fetched successfully");
       } catch (error) {
