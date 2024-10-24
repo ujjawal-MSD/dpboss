@@ -1,4 +1,4 @@
-const PanelData = require('../models/panelDataModel'); // Single collection where all panel data is stored
+const PanelData = require('../models/panel.model'); // Single collection where all panel data is stored
 
 // Define a single function to handle fetching panel data by URL
 const getPanelData = async (req, res) => {

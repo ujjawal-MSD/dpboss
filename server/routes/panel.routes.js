@@ -1,5 +1,5 @@
 const express = require('express');
-const { getPanelData } = require('../controller/getController');
+const { getPanelData } = require('../controller/panel.controller');
 
 const router = express.Router();
 
